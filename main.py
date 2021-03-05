@@ -3,13 +3,10 @@ import numpy.matlib
 import scipy.io
 import scipy.signal
 import sklearn
-import glob
-import os
-import csv
 from sklearn.decomposition import PCA
 from nnsg import nnsg
 
-base = scipy.io.loadmat('D:\FTN\Doktorske\Projekat sa dijasporom\TIP code\YaleB_32x32.mat')
+base = scipy.io.loadmat('data/YaleB_32x32.mat')
 features = base['fea']
 labels = base['gnd']
 
@@ -19,8 +16,9 @@ lambda3 = [0.01]
 number_of_repetitions = 30
 select_number = 5
 
+
 number_of_components = 60
-pca_model = sklearn.decomposition.PCA(n_components=number_of_components, svd_solver='full')
+pca_model = PCA(n_components=number_of_components, svd_solver='full')
 features = pca_model.fit_transform(features)
 nn_class, num_class = np.unique(labels, return_counts=True)
 
@@ -66,9 +64,6 @@ for i in range(number_of_repetitions):
                    # best_p2 = p2
                    # best_p3 = p3
                 accuracy.append(current_accuracy)
-
-
-
 mean_accuracy = np.mean(accuracy)
 std_accuracy = np.std(accuracy)
 
