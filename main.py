@@ -6,7 +6,7 @@ import sklearn
 from sklearn.decomposition import PCA
 from nnsg import nnsg
 
-base = scipy.io.loadmat('data/YaleB_32x32.mat')
+base = scipy.io.loadmat('data/YaleB_32x32.mat') # ucitavanje
 features = base['fea']
 labels = base['gnd']
 
