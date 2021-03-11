@@ -6,13 +6,13 @@ import sklearn
 from sklearn.decomposition import PCA
 from nnsg import nnsg
 
-base = scipy.io.loadmat('data/YaleB_32x32.mat') # ucitavanje
+base = scipy.io.loadmat('data/YaleB_32x32.mat')
 features = base['fea']
 labels = base['gnd']
 
-lambda1 = [0.001]
-lambda2 = [0.5]
-lambda3 = [0.01]
+parameter_alpha = [0.001]
+parameter_lambda = [0.5]
+parameter_beta = [0.01]
 number_of_repetitions = 30
 select_number = 5
 
@@ -50,10 +50,10 @@ for i in range(number_of_repetitions):
     complete_matrix = np.concatenate((train_features, test_features))
 
     # best_acurracy = 0
-    for p1 in lambda1:
-        for p2 in lambda2:
-            for p3 in lambda3:
-                W, F, S, obj = nnsg(train_labels, np.transpose(complete_matrix), p1, p2, p3)
+    for alpha1 in parameter_alpha:
+        for lambda1 in parameter_lambda:
+            for beta1 in parameter_beta:
+                W, F, S, obj = nnsg(train_labels, np.transpose(complete_matrix), alpha1, lambda1, beta1)
                 predicted_labels = F[len(train_labels):, :]
                 id_2 = np.argsort(predicted_labels)
                 id_3 = id_2[:, -1] + 1
